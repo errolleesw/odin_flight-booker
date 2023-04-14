@@ -12,7 +12,7 @@ rails generate scaffold Airport code:string name:string
 # create the Airline scaffold
 rails generate scaffold Airline code:string name:string 
 # create the Flight scaffold
-rails generate scaffold Flight flight_number:string airline:references origin:references destination:references depature_time:datetime arrival_time:datetime duration:integer 
+rails generate scaffold Flight flight_number:string airline:references origin:references destination:references departure_time:datetime arrival_time:datetime duration:integer 
 ```
 
 Airlines and airport data sourced from: https://openflights.org/data.html

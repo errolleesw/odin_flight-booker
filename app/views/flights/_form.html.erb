@@ -2,7 +2,6 @@
   <% if flight.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(flight.errors.count, "error") %> prohibited this flight from being saved:</h2>
-
       <ul>
         <% flight.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,42 +9,34 @@
       </ul>
     </div>
   <% end %>
-
   <div>
     <%= form.label :flight_number, style: "display: block" %>
     <%= form.text_field :flight_number %>
   </div>
-
   <div>
     <%= form.label :airline_id, style: "display: block" %>
     <%= form.text_field :airline_id %>
   </div>
-
   <div>
     <%= form.label :origin_id, style: "display: block" %>
     <%= form.text_field :origin_id %>
   </div>
-
   <div>
     <%= form.label :destination_id, style: "display: block" %>
     <%= form.text_field :destination_id %>
   </div>
-
   <div>
-    <%= form.label :depature_time, style: "display: block" %>
-    <%= form.datetime_field :depature_time %>
+    <%= form.label :departure_time, style: "display: block" %>
+    <%= form.datetime_field :departure_time %>
   </div>
-
   <div>
     <%= form.label :arrival_time, style: "display: block" %>
     <%= form.datetime_field :arrival_time %>
   </div>
-
   <div>
     <%= form.label :duration, style: "display: block" %>
     <%= form.number_field :duration %>
   </div>
-
   <div>
     <%= form.submit %>
   </div>
