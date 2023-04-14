@@ -1,14 +1,24 @@
 <p style="color: green"><%= notice %></p>
-
 <h1>Airlines</h1>
-
-<div id="airlines">
-  <% @airlines.each do |airline| %>
-    <%= render airline %>
-    <p>
-      <%= link_to "Show this airline", airline %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New airline", new_airline_path %>
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>Airline Code</th>
+      <th>Airline Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @airlines.each do |airline| %>
+      <tr>
+        <td><%= airline.id %></td>
+        <td><%= airline.code %></td>
+        <td><%= airline.name %></td>
+        <td><%= link_to 'Show', airline %></td>
+        <td><%= link_to 'Edit', edit_airline_path(airline) %></td>
+        <td><%= link_to 'Delete', airline, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <%= link_to "New airline", new_airline_path %>
