@@ -19,12 +19,12 @@
       <tr>
         <td><%= flight.id %></td>
         <td><%= flight.flight_number %></td>
-        <td><%= flight.airline_id %></td>
-        <td><%= flight.origin_id %></td>
-        <td><%= flight.destination_id %></td>
-        <td><%= flight.departure_time %></td>
-        <td><%= flight.arrival_time %></td>
-        <td><%= flight.duration %></td>
+        <td><%= flight.airline_name %></td>
+        <td><%= "#{flight.origin_code} | #{flight.origin_name}" %></td>
+        <td><%= "#{flight.destination_code} | #{flight.destination_name}" %></td>
+        <td><%= flight.departure_time.strftime("%-d %b %y %H:%M") %></td>
+        <td><%= flight.arrival_time.strftime("%-d %b %y %H:%M") %></td>
+        <td><%= sprintf("%.1f", flight.duration/60.0) %></td>
         <td><%= link_to 'Show', flight %></td>
         <td><%= link_to 'Edit', edit_flight_path(flight) %></td>
         <td><%= link_to 'Delete', flight, method: :delete, data: { confirm: 'Are you sure?' } %></td>
