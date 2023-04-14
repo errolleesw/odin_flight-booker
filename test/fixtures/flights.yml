@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  flight_number: MyString
+  airline: one
+  origin: one
+  destination: one
+  depature_time: 2023-04-14 20:35:16
+  arrival_time: 2023-04-14 20:35:16
+  duration: 1
+
+two:
+  flight_number: MyString
+  airline: two
+  origin: two
+  destination: two
+  depature_time: 2023-04-14 20:35:16
+  arrival_time: 2023-04-14 20:35:16
+  duration: 1
