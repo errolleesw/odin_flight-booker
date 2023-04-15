@@ -1,6 +1,7 @@
 <h1>New booking</h1>
 <%= form_with(model: @booking, local: true) do |form| %>
   <%= form.hidden_field :flight_id, value: @flight[:id] %>
+  <%= form.hidden_field :num_passengers, value: @num_passengers %> <!-- added this line so the num_passengers value is included in the request -->
   <div>
     <strong>Origin:</strong>
     <%= @flight[:origin_name] %>
