@@ -1,9 +1,34 @@
 <h1>New booking</h1>
-
-<%= render "form", booking: @booking %>
-
+<%= form_with(model: @booking, local: true) do |form| %>
+  <%= form.hidden_field :flight_id, value: @flight[:id] %>
+  <div>
+    <strong>Origin:</strong>
+    <%= @flight[:origin_name] %>
+  </div>
+  <div>
+    <strong>Destination:</strong>
+    <%= @flight[:destination_name] %>
+  </div>
+  <div>
+    <strong>Departure time:</strong>
+    <%= @flight[:departure_time].to_time.strftime("%-d %b %y %H:%M") %>
+  </div>
+  <div>
+    <strong>Number of passengers:</strong>
+    <%= @num_passengers %>
+  </div>
+  <% @num_passengers.times do |index| %>
+    <%= fields_for "passengers[#{index}]" do |passenger_fields| %>
+      <div>
+        <%= passenger_fields.label "Passenger #{index + 1} Name" %>
+        <%= passenger_fields.text_field :name %>
+      </div>
+    <% end %>
+  <% end %>
+  <!-- Other booking form fields -->
+  <%= form.submit %>
+<% end %>
 <br>
-
 <div>
   <%= link_to "Back to bookings", bookings_path %>
 </div>

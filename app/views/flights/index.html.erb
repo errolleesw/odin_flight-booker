@@ -20,7 +20,8 @@
   <%= submit_tag 'Search' %>
 <% end %>
 <h1>Flights</h1>
-<%= form_with(url: flights_path, method: :post) do %>
+<%= form_with(url: new_booking_path, method: :get) do %>
+  <%= submit_tag 'Select Flight' %>
   <table>
     <thead>
       <tr>
@@ -53,5 +54,10 @@
       <% end %>
     </tbody>
   </table>
-  <%= submit_tag 'Select Flight' %>
+  <% @flights.each do |flight| %>
+    <%= hidden_field_tag "flight[#{flight.id}][origin_name]", flight.origin_name %>
+    <%= hidden_field_tag "flight[#{flight.id}][destination_name]", flight.destination_name %>
+    <%= hidden_field_tag "flight[#{flight.id}][departure_time]", flight.departure_time %>
+  <% end %>
+  <%= hidden_field_tag "num_passengers", params[:num_passengers]  %>
 <% end %>
