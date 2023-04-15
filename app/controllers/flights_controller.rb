@@ -1,6 +1,6 @@
 class FlightsController < ApplicationController
   before_action :set_flight, only: %i[show edit update destroy]
-
+  # helper_method :unique_departure_dates
   # GET /flights or /flights.json
   # def index
   #   @flights = Flight.all
@@ -12,6 +12,9 @@ class FlightsController < ApplicationController
   # end
 
   def index
+    # get the unique departure dates from the flight model and uses it as options in the select tag
+    @unique_departure_dates = Flight.pluck(:departure_time).map { |datetime| datetime.to_date }.uniq.sort
+
     # The joins part of the query creates an SQL INNER JOIN between flights and airports on origin_id and destination_id
     # The includes part of the query performs eager loading for the :airline, :origin, and :destination associations. So you can featch all the assoicated records in a single query.
     @flights = Flight.joins(:origin, :destination).includes(:airline, :origin, :destination)
@@ -25,13 +28,16 @@ class FlightsController < ApplicationController
 
     # return unless params[:to].present?
 
-    return unless params[:to].present?
+    # return unless params[:to].present?
+    if params[:to].present?
+      # another .joins(:destination) is added before the .where clause to create an alias for the airports table. This is necessary because both :origin and :destination associaitons references the same table and using an alias helps to avoid ambiguity.
+      @flights = @flights.joins(:destination).where('destinations_flights.name ILIKE ?',
+                                                    "%#{params[:to]}%")
+    end
 
-    # another .joins(:destination) is added before the .where clause to create an alias for the airports table. This is necessary because both :origin and :destination associaitons references the same table and using an alias helps to avoid ambiguity.
-    @flights = @flights.joins(:destination).where('destinations_flights.name ILIKE ?',
-                                                  "%#{params[:to]}%")
+    return unless params[:date].present?
 
-    # @flights = @flights.where(departure_time: params[:date].to_date.beginning_of_day..params[:date].to_date.end_of_day)
+    @flights = @flights.where(departure_time: params[:date].to_date.beginning_of_day..params[:date].to_date.end_of_day)
   end
 
   # GET /flights/1 or /flights/1.json
@@ -82,6 +88,11 @@ class FlightsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # this method extract unique flight dates from the database and sort them in ascending order. This is used the the drop down menu on the flights search form.
+  # def unique_departure_dates
+  #   @unique_departure_dates = Flight.pluck(:departure_time).map { |datetime| datetime.to_date }.uniq.sort
+  # end
 
   private
 
