@@ -1,10 +1,12 @@
 <p style="color: green"><%= notice %></p>
-
 <%= render @booking %>
-
+<% @booking.passengers.each_with_index do |passenger, index| %>
+  <div>
+    <%= "#{index + 1}. #{passenger.name} (#{passenger.email})" %>
+  </div>
+<% end %>
 <div>
   <%= link_to "Edit this booking", edit_booking_path(@booking) %> |
   <%= link_to "Back to bookings", bookings_path %>
-
   <%= button_to "Destroy this booking", @booking, method: :delete %>
 </div>
