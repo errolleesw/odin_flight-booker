@@ -4,4 +4,6 @@ class Booking < ApplicationRecord
   has_many :passengers, through: :passenger_bookings
 
   accepts_nested_attributes_for :passengers
+
+  delegate :origin_name, :destination_name, :departure_time, to: :flight, prefix: true
 end
