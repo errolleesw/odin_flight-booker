@@ -2,16 +2,20 @@
 <h1>Search Flights</h1>
 <%= form_tag flights_path, method: :get do %>
   <div>
+    <%= label_tag :date, 'Date' %>
+    <%= select_tag(:date, options_for_select([['', nil]] + @unique_departure_dates)) %>
+  </div>
+  <div>
     <%= label_tag :from, 'From' %>
-    <%= text_field_tag :from, params[:from] %>
+    <%= select_tag(:from, options_for_select([['', nil]] + @unique_origin_airports) )%> <!-- The ['', nil] inserts a blank option as the first element -->
   </div>
   <div>
     <%= label_tag :to, 'To' %>
-    <%= text_field_tag :to, params[:to] %>
+    <%= select_tag(:to, options_for_select([['', nil]] + @unique_destination_airports) )%> <!-- The ['', nil] inserts a blank option as the first element -->
   </div>
   <div>
-    <%= label_tag :date, 'Date' %>
-    <%= select_tag(:date, options_for_select(@unique_departure_dates)) %>
+    <%= label_tag :num_passengers, 'Number of Passengers' %>
+    <%= select_tag(:num_passengers, options_for_select((1..4).to_a) )%>
   </div>
   <%= submit_tag 'Search' %>
 <% end %>

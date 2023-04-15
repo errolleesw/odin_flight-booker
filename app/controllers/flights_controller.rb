@@ -14,7 +14,8 @@ class FlightsController < ApplicationController
   def index
     # get the unique departure dates from the flight model and uses it as options in the select tag
     @unique_departure_dates = Flight.pluck(:departure_time).map { |datetime| datetime.to_date }.uniq.sort
-
+    @unique_origin_airports = Flight.joins(:origin).pluck('airports.name').uniq.sort
+    @unique_destination_airports = Flight.joins(:destination).pluck('airports.name').uniq.sort
     # The joins part of the query creates an SQL INNER JOIN between flights and airports on origin_id and destination_id
     # The includes part of the query performs eager loading for the :airline, :origin, and :destination associations. So you can featch all the assoicated records in a single query.
     @flights = Flight.joins(:origin, :destination).includes(:airline, :origin, :destination)
