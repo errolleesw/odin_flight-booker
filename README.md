@@ -13,6 +13,16 @@ rails generate scaffold Airport code:string name:string
 rails generate scaffold Airline code:string name:string 
 # create the Flight scaffold
 rails generate scaffold Flight flight_number:string airline:references origin:references destination:references departure_time:datetime arrival_time:datetime duration:integer 
+# create the Bookings scaffold
+rails generate scaffold Booking flight:references num_passengers:integer
+rails generate scaffold Passenger name:string email:string
+rails generate scaffold PassengerBooking booking:references passenger:references
 ```
 
 Airlines and airport data sourced from: https://openflights.org/data.html
+
+
+## Learnings
+- Creating Search forms
+- Creating Search forms with dropdown lists based on data in the database.
+- 
