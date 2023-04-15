@@ -18,10 +18,14 @@
     <%= @num_passengers %>
   </div>
   <% @num_passengers.times do |index| %>
-    <%= fields_for "passengers[#{index}]" do |passenger_fields| %>
+    <%= form.fields_for "passengers_attributes[#{index}]" do |passenger_fields| %>
       <div>
         <%= passenger_fields.label "Passenger #{index + 1} Name" %>
         <%= passenger_fields.text_field :name %>
+      </div>
+      <div>
+        <%= passenger_fields.label "Passenger #{index + 1} Email" %>
+        <%= passenger_fields.text_field :email %>
       </div>
     <% end %>
   <% end %>

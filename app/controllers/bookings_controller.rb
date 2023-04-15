@@ -12,6 +12,7 @@ class BookingsController < ApplicationController
   # GET /bookings/new
   def new
     @booking = Booking.new
+    # This enables these details to be accessible so they can be displayed on the new booking form.
     @flight = {
       id: params[:selected_flight],
       # flight_number: params[:flight][params[:selected_flight]][:flight_number],
@@ -72,6 +73,6 @@ class BookingsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def booking_params
-    params.require(:booking).permit(:flight_id, :num_passengers)
+    params.require(:booking).permit(:flight_id, passengers_attributes: %i[name email])
   end
 end
