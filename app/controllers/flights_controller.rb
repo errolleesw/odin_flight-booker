@@ -2,13 +2,36 @@ class FlightsController < ApplicationController
   before_action :set_flight, only: %i[show edit update destroy]
 
   # GET /flights or /flights.json
+  # def index
+  #   @flights = Flight.all
+  #   @flights = @flights.joins(:origin).where('origins.name ILIKE ?', "%#{params[:from]}%") if params[:from].present?
+  #   @flights = @flights.where(destination: params[:to]) if params[:to].present?
+  #   @flights = @flights.where('departure_time > ?', params[:departure_time]) if params[:departure_time].present?
+  #   @flights = @flights.where('arrival_time < ?', params[:arrival_time]) if params[:arrival_time].present?
+  #   @flights = @flights.where('duration < ?', params[:duration]) if params[:duration].present?
+  # end
+
   def index
-    @flights = Flight.all
-    @flights = @flights.where(origin: params[:from]) if params[:from].present?
-    @flights = @flights.where(destination: params[:to]) if params[:to].present?
-    @flights = @flights.where('departure_time > ?', params[:departure_time]) if params[:departure_time].present?
-    @flights = @flights.where('arrival_time < ?', params[:arrival_time]) if params[:arrival_time].present?
-    @flights = @flights.where('duration < ?', params[:duration]) if params[:duration].present?
+    # The joins part of the query creates an SQL INNER JOIN between flights and airports on origin_id and destination_id
+    # The includes part of the query performs eager loading for the :airline, :origin, and :destination associations. So you can featch all the assoicated records in a single query.
+    @flights = Flight.joins(:origin, :destination).includes(:airline, :origin, :destination)
+
+    # if params[:from].present?
+    #   @flights = @flights.joins(:origin).where('origins_flights.name ILIKE ?',
+    #                                            "%#{params[:from]}%")
+    # end
+
+    @flights = @flights.where('airports.name ILIKE ?', "%#{params[:from]}%") if params[:from].present?
+
+    # return unless params[:to].present?
+
+    return unless params[:to].present?
+
+    # another .joins(:destination) is added before the .where clause to create an alias for the airports table. This is necessary because both :origin and :destination associaitons references the same table and using an alias helps to avoid ambiguity.
+    @flights = @flights.joins(:destination).where('destinations_flights.name ILIKE ?',
+                                                  "%#{params[:to]}%")
+
+    # @flights = @flights.where(departure_time: params[:date].to_date.beginning_of_day..params[:date].to_date.end_of_day)
   end
 
   # GET /flights/1 or /flights/1.json
