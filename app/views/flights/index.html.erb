@@ -1,4 +1,20 @@
 <p style="color: green"><%= notice %></p>
+<h1>Search Flights</h1>
+<%= form_tag flights_path, method: :get do %>
+  <div>
+    <%= label_tag :from, 'From' %>
+    <%= text_field_tag :from, params[:from] %>
+  </div>
+  <div>
+    <%= label_tag :to, 'To' %>
+    <%= text_field_tag :to, params[:to] %>
+  </div>
+  <div>
+    <%= label_tag :date, 'Date' %>
+    <%= text_field_tag :date, params[:date] %>
+  </div>
+  <%= submit_tag 'Search' %>
+<% end %>
 <h1>Flights</h1>
 <table>
   <thead>

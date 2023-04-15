@@ -4,6 +4,11 @@ class FlightsController < ApplicationController
   # GET /flights or /flights.json
   def index
     @flights = Flight.all
+    @flights = @flights.where(origin: params[:from]) if params[:from].present?
+    @flights = @flights.where(destination: params[:to]) if params[:to].present?
+    @flights = @flights.where('departure_time > ?', params[:departure_time]) if params[:departure_time].present?
+    @flights = @flights.where('arrival_time < ?', params[:arrival_time]) if params[:arrival_time].present?
+    @flights = @flights.where('duration < ?', params[:duration]) if params[:duration].present?
   end
 
   # GET /flights/1 or /flights/1.json
