@@ -25,4 +25,6 @@ Airlines and airport data sourced from: https://openflights.org/data.html
 ## Learnings
 - Creating Search forms
 - Creating Search forms with dropdown lists based on data in the database.
+- Include information as hidden fields in a form so it is included in the request when the form is submitted.
+- 
 - 
