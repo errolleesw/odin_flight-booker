@@ -70,3 +70,6 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+# use letter_opener to preview emails in the browser instead of sending them
+gem "letter_opener", group: :development
